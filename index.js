@@ -2,7 +2,9 @@ import express from 'express'
 import mongoose  from 'mongoose';
 import userRouter from "./routes/user.js"
 // import userCall from "./routes/Call.js"
-import cors from "cors"
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config()
 
 const port = 5000;
 
@@ -19,9 +21,8 @@ app.get('/',(req,res)=>{
 app.use("/users/",userRouter);
 // app.use("/users/",userCall);
 
-const MONGO_URL = "mongodb+srv://nipunkhattri:nipunkhattri@cluster0.4jor1xh.mongodb.net/test";
 
-mongoose.connect(MONGO_URL).then(()=>{
+mongoose.connect(process.env.MONGO_URL).then(()=>{
     app.listen(port,()=>{
         console.log("server running on port 5000");
     })
