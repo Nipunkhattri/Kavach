@@ -26,6 +26,6 @@ export const ReportSpam = async (req,res) =>{
       }
     //   i++;
     })
-    res.json({ status })
+    res.json( status )
   
   }
