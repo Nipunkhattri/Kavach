@@ -14,9 +14,9 @@ export const ReportSpam = async (req,res) =>{
       console.log(phone)
       if (phone) {
         if (phone.NumberofReports > 10) {
-          return { number, status: 'Report' }
-        } else {
           return { number, status: 'Not Report' }
+        } else {
+          return { number, status: 'Report' }
         }
       }
       else{
