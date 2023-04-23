@@ -15,7 +15,7 @@ export const CallCheck = async (req,res) =>{
               );
             const CheckCallnew = await CallSchema.findOne({Phone_no});
             console.log(CheckCallnew)
-            score = (CheckCallnew.NumberofReports/(CheckCallnew.NumberofReports+CheckCallnew.NumberofGenuie))*100;
+            score = Math.floor((CheckCallnew.NumberofReports/(CheckCallnew.NumberofReports+CheckCallnew.NumberofGenuie))*100);
             if(CheckCallnew.NumberofReports>3){
                 return res.status(200).json({message:"Report Spam",score});
             }
@@ -54,7 +54,7 @@ export const GenuieCheck = async (req,res) =>{
               );
             const CheckCallnew = await CallSchema.findOne({Phone_no});
             // console.log(CheckCallnew)
-            score = (CheckCallnew.NumberofReports/(CheckCallnew.NumberofReports+CheckCallnew.NumberofGenuie))*100;
+            score = Math.floor((CheckCallnew.NumberofReports/(CheckCallnew.NumberofReports+CheckCallnew.NumberofGenuie))*100);
             if(CheckCallnew.NumberofReports>3){
                 return res.status(200).json({message:"Report Spam",score});
             }

@@ -3,7 +3,7 @@ import CallSchema from "../models/Callspan.js"
 export const ReportSpam = async (req,res) =>{
     const numbers = req.body.Phone_no
     // console.log(numbers);
-    const NoG = 0;
+    const NoG = 4;
     const NoR = 0 ;
     let score = 0;
     const phones = await CallSchema.find({ Phone_no: { $in: numbers } })
@@ -15,15 +15,16 @@ export const ReportSpam = async (req,res) =>{
       // console.log(phones1.NumberofReports)
       if (phone){
         console.log(phone.NumberofReports);
-        score = (phone.NumberofReports/(phone.NumberofGenuie+phone.NumberofReports))*100;
+        score = Math.floor((phone.NumberofReports/(phone.NumberofGenuie+phone.NumberofReports))*100);
         if (phone.NumberofReports > 3) {
-          return { number, status: 'Report',score }
+          return { number, status: 'Report',score:score }
         } else {
-          return { number, status: 'Not Report',score }
+          return { number, status: 'Not Report',score:score }
         }
       }
       else{
         const newPhone = new CallSchema({ Phone_no:number, NumberofReports:NoR,NumberofGenuie:NoG})
+        score = Math.floor((newPhone.NumberofReports/(newPhone.NumberofGenuie+newPhone.NumberofReports))*100);
         newPhone.save()
         return { number, status: 'Not Report',score}
       }
